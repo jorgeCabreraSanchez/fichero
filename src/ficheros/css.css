@@ -1,0 +1,16 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 29-mar-2017, 21:31:54
+    Author     : jorge
+*/
+
+#panelGrid{
+    -fx-border-color: gray;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-effect:dropshadow(one-pass-box,black, 10, 0, 5, 5);
+}
