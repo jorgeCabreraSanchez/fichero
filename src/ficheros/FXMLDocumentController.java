@@ -7,6 +7,7 @@ package ficheros;
 
 import ficheros.Modelo.AccionesDirectorio;
 import java.awt.Window;
+import java.io.File;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,7 +20,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  *
@@ -28,7 +31,7 @@ import javafx.stage.FileChooser;
 public class FXMLDocumentController implements Initializable {
 
     AccionesDirectorio Acciones = new AccionesDirectorio();
-    FileChooser fileChooser = new FileChooser();
+    
 
     @FXML
     private TextField cadenaRutaEntera;
@@ -62,10 +65,11 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void abrir(ActionEvent event) {
-        Path archivo = Paths.get("prueba.txt");
-//        fileChooser.showOpenDialog(ownerWindow);
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+//        javafx.stage.Window ownerWindow = null;
+        File archivo = directoryChooser.showDialog(new Stage());
         
-        this.cadenaRutaEntera.setText(archivo.toAbsolutePath().toString());
+        this.cadenaRutaEntera.setText(archivo.getAbsolutePath());
         
         
     }
