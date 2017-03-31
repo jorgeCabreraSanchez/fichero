@@ -24,6 +24,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -36,21 +37,13 @@ import javafx.stage.Stage;
 public class FXMLDocumentController implements Initializable {
 
     AccionesDirectorio Acciones = new AccionesDirectorio();
-    
+
     @FXML
     private TextField cadenaRutaEntera;
     @FXML
-    private RadioButton operacion2;
-    @FXML
-    private RadioButton operacion3;
-    @FXML
     private TextField cadenaFiltrado;
     @FXML
-    private RadioButton operacion4;
-    @FXML
     private TextField cadenaBytes;
-    @FXML
-    private RadioButton operacion5;
     @FXML
     private TextField cadenaNuevoArchivo;
     @FXML
@@ -63,10 +56,20 @@ public class FXMLDocumentController implements Initializable {
     private RadioButton radiusOperacion1;
     @FXML
     private TextArea resultadoFinal;
+    @FXML
+    private ToggleGroup opciones;
+    @FXML
+    private RadioButton radiusOperacion2;
+    @FXML
+    private RadioButton radiusOperacion3;
+    @FXML
+    private RadioButton radiusOperacion4;
+    @FXML
+    private RadioButton radiusOperacion5;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      
+        this.radiusOperacion1.setUserData("listarContenido");
     }
 
     @FXML
@@ -74,26 +77,22 @@ public class FXMLDocumentController implements Initializable {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         Path archivo = directoryChooser.showDialog(new Stage()).toPath();
         Acciones.pasarDirectorio(archivo);
-        this.cadenaRutaEntera.setText(archivo.toAbsolutePath().toString());   
+        this.cadenaRutaEntera.setText(archivo.toAbsolutePath().toString());
     }
 
     @FXML
     private void operacion1(ActionEvent event) {
-        try {
-            this.resultadoFinal.setText(Acciones.listarContenido());
-        } catch (IOException ex) {
-            this.resultadoFinal.setText("Hemos tenido un problema mostrando el contenido del directorio");
+        if (this.opciones.getSelectedToggle().isSelected()) { 
+                this.resultadoFinal.setText(Acciones.listarContenido());            
         }
     }
 
     @FXML
     private void ruta(ActionEvent event) {
         Path directorio = Paths.get(this.cadenaRutaEntera.getText());
-        if(Files.exists(directorio)){
+        if (Files.exists(directorio)) {
             Acciones.pasarDirectorio(directorio);
         }
     }
-    
-    
 
 }

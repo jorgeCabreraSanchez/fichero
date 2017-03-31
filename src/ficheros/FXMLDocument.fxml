@@ -25,13 +25,16 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <RadioButton fx:id="radiusOperacion1" mnemonicParsing="false" onAction="#operacion1" text="1. Listar contenido del directorio" />
-            <RadioButton fx:id="operacion2" mnemonicParsing="false" text="2. Listar contenido filtrado" GridPane.rowIndex="1" />
-            <RadioButton fx:id="operacion3" mnemonicParsing="false" text="3. Listar archivos de sólo lectura" GridPane.rowIndex="2" />
+            <RadioButton fx:id="radiusOperacion1" mnemonicParsing="false" onAction="#operacion1" text="1. Listar contenido del directorio">
+               <toggleGroup>
+                  <ToggleGroup fx:id="opciones" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="radiusOperacion2" mnemonicParsing="false" onAction="#operacion1" text="2. Listar contenido filtrado" toggleGroup="$opciones" GridPane.rowIndex="1" />
+            <RadioButton fx:id="radiusOperacion3" mnemonicParsing="false" onAction="#operacion1" text="3. Listar archivos de sólo lectura" toggleGroup="$opciones" GridPane.rowIndex="2" />
             <TextField fx:id="cadenaFiltrado" maxWidth="-Infinity" prefHeight="25.0" prefWidth="159.0" promptText="Escribir cadena de filtrado" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <RadioButton fx:id="operacion4" mnemonicParsing="false" text="4. Listar archivos filtrados por tamaño" GridPane.rowIndex="3" />
+            <RadioButton fx:id="radiusOperacion4" mnemonicParsing="false" onAction="#operacion1" text="4. Listar archivos filtrados por tamaño" toggleGroup="$opciones" GridPane.rowIndex="3" />
             <TextField fx:id="cadenaBytes" maxWidth="-Infinity" prefHeight="25.0" prefWidth="70.0" promptText="en Bytes" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <RadioButton fx:id="operacion5" mnemonicParsing="false" text="5. Crear archivo nuevo" GridPane.rowIndex="4" />
+            <RadioButton fx:id="radiusOperacion5" mnemonicParsing="false" onAction="#operacion1" text="5. Crear archivo nuevo" toggleGroup="$opciones" GridPane.rowIndex="4" />
             <TextField fx:id="cadenaNuevoArchivo" maxWidth="-Infinity" prefHeight="25.0" prefWidth="277.0" promptText="Nombre del archivo" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
          <padding>
