@@ -24,6 +24,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
@@ -78,20 +79,73 @@ public class FXMLDocumentController implements Initializable {
         Path archivo = directoryChooser.showDialog(new Stage()).toPath();
         Acciones.pasarDirectorio(archivo);
         this.cadenaRutaEntera.setText(archivo.toAbsolutePath().toString());
-    }
-
-    @FXML
-    private void operacion1(ActionEvent event) {
-        if (this.opciones.getSelectedToggle().isSelected()) { 
-                this.resultadoFinal.setText(Acciones.listarContenido());            
+        if (!archivo.toString().isEmpty()) {
+            this.panelGrid.setDisable(false);
+        } else {
+            this.panelGrid.setDisable(true);
+        }
+        if (this.opciones.getSelectedToggle() != null) {
+            this.opciones.getSelectedToggle().setSelected(false);
         }
     }
 
     @FXML
     private void ruta(ActionEvent event) {
         Path directorio = Paths.get(this.cadenaRutaEntera.getText());
-        if (Files.exists(directorio)) {
+        if (this.cadenaRutaEntera.getText().isEmpty()) {
+            String rutaActual = Paths.get(new File("").getAbsolutePath()).toString();
+            this.cadenaRutaEntera.setText(rutaActual);
+            Acciones.pasarDirectorio(Paths.get(rutaActual));
+            this.panelGrid.setDisable(false);
+        } else if (Files.exists(directorio)) {
             Acciones.pasarDirectorio(directorio);
+            this.panelGrid.setDisable(false);
+        } else {
+            this.panelGrid.setDisable(true);
+        }
+        if (this.opciones.getSelectedToggle() != null) {
+            this.opciones.getSelectedToggle().setSelected(false);
+        }
+    }
+
+    @FXML
+    private void operacion1(ActionEvent event) { //Operaciones 1 y 2
+        this.resultadoFinal.setText(Acciones.listarContenido(""));
+
+    }
+
+    @FXML
+    private void operacion2(ActionEvent event) {
+        if (this.opciones.getSelectedToggle() == this.radiusOperacion2) {
+            String texto = this.cadenaFiltrado.getText();
+            this.resultadoFinal.setText(Acciones.listarContenido(texto));
+        }
+    }
+
+    @FXML
+    private void operacion3(ActionEvent event) {
+        this.resultadoFinal.setText(Acciones.listarArchivosLectura());
+    }
+
+    @FXML
+    private void operacion4(ActionEvent event) {
+        if (this.opciones.getSelectedToggle() == this.radiusOperacion4) {
+            if (this.cadenaBytes.getText().isEmpty()) {
+                this.resultadoFinal.setText(Acciones.listarArchivosTamaño(0));
+            } else {
+                this.resultadoFinal.setText(Acciones.listarArchivosTamaño(Integer.parseInt(this.cadenaBytes.getText())));
+            }
+        }
+    }
+
+    @FXML
+    private void operacion5(ActionEvent event) {
+        if (this.opciones.getSelectedToggle() == this.radiusOperacion5) {
+            try {
+            this.resultadoFinal.setText(Acciones.crearArchivo(this.cadenaNuevoArchivo.getText()));
+            } catch (Exception e){
+                this.resultadoFinal.setText("No se ha podido crear el archivo");
+            }
         }
     }
 
