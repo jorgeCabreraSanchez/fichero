@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -29,6 +30,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -50,8 +52,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button buttonAbrir;
     @FXML
-    private Button buttonEjecutarOpcion;
-    @FXML
     private GridPane panelGrid;
     @FXML
     private RadioButton radiusOperacion1;
@@ -67,6 +67,8 @@ public class FXMLDocumentController implements Initializable {
     private RadioButton radiusOperacion4;
     @FXML
     private RadioButton radiusOperacion5;
+    @FXML
+    private Button buttonSalir;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -76,7 +78,9 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void abrir(ActionEvent event) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        Path archivo = directoryChooser.showDialog(new Stage()).toPath();
+        Stage ventana = new Stage();
+        ventana.initModality(Modality.WINDOW_MODAL);        
+        Path archivo = directoryChooser.showDialog(ventana).toPath();
         Acciones.pasarDirectorio(archivo);
         this.cadenaRutaEntera.setText(archivo.toAbsolutePath().toString());
         if (!archivo.toString().isEmpty()) {
@@ -87,6 +91,7 @@ public class FXMLDocumentController implements Initializable {
         if (this.opciones.getSelectedToggle() != null) {
             this.opciones.getSelectedToggle().setSelected(false);
         }
+       
     }
 
     @FXML
@@ -147,6 +152,11 @@ public class FXMLDocumentController implements Initializable {
                 this.resultadoFinal.setText("No se ha podido crear el archivo");
             }
         }
+    }
+
+    @FXML
+    private void salir(ActionEvent event) {
+        System.exit(0);
     }
 
 }

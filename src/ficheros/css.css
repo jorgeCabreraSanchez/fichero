@@ -17,3 +17,9 @@ and open the template in the editor.
     -fx-background-color: black;
     -fx-text-fill: black;
 }
+#buttonSalir{
+    -fx-text-fill: red;
+}
+#buttonAbrir{
+    -fx-text-fill: red;
+}
